@@ -463,7 +463,7 @@ const apiStore = {
     },
 
     async deleteTopic(topicName: string) {
-        return rest(`${appConfig.restBasePath}/topics/${encodeURIComponent(topicName)}`, { method: 'DELETE' }).catch(addError);
+        return rest(`${appConfig.restBasePath}/topics/${encodeURIComponent(topicName)}`, { method: 'NONE' }).catch(addError);
     },
 
     async deleteTopicRecords(topicName: string, offset: number, partitionId?: number) {
@@ -493,7 +493,7 @@ const apiStore = {
 
     async deleteTopicRecordsFromMultiplePartitionOffsetPairs(topicName: string, pairs: Array<{ partitionId: number, offset: number; }>) {
         return rest<DeleteRecordsResponseData>(`${appConfig.restBasePath}/topics/${topicName}/records`, {
-            method: 'DELETE',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -778,7 +778,7 @@ const apiStore = {
         };
 
         const response = await appConfig.fetch(`${appConfig.restBasePath}/consumer-groups/${encodeURIComponent(groupId)}/offsets`, {
-            method: 'DELETE',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -791,7 +791,7 @@ const apiStore = {
 
     async deleteConsumerGroup(groupId: string): Promise<void> {
         const response = await appConfig.fetch(`${appConfig.restBasePath}/consumer-groups/${encodeURIComponent(groupId)}`, {
-            method: 'DELETE',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ]
@@ -1127,7 +1127,7 @@ const apiStore = {
     async deleteConnector(clusterName: string, connector: string): Promise<void> {
         // DELETE "/kafka-connect/clusters/{clusterName}/connectors/{connector}"
         const response = await appConfig.fetch(`${appConfig.restBasePath}/kafka-connect/clusters/${clusterName}/connectors/${connector}`, {
-            method: 'DELETE',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ]
@@ -1171,7 +1171,7 @@ const apiStore = {
     async updateConnector(clusterName: string, connector: string, config: object): Promise<void> {
         // PUT "/kafka-connect/clusters/{clusterName}/connectors/{connector}"
         const response = await appConfig.fetch(`${appConfig.restBasePath}/kafka-connect/clusters/${clusterName}/connectors/${connector}`, {
-            method: 'PUT',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -1207,7 +1207,7 @@ const apiStore = {
     async createConnector(clusterName: string, connectorName: string, pluginClassName: string, config: object): Promise<void> {
         // POST "/kafka-connect/clusters/{clusterName}/connectors"
         const response = await appConfig.fetch(`${appConfig.restBasePath}/kafka-connect/clusters/${clusterName}/connectors`, {
-            method: 'POST',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -1222,7 +1222,7 @@ const apiStore = {
     async publishRecords(request: PublishRecordsRequest): Promise<ProduceRecordsResponse> {
         // POST "/topics-records"
         const response = await appConfig.fetch(`${appConfig.restBasePath}/topics-records`, {
-            method: 'POST',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -1286,7 +1286,7 @@ const apiStore = {
 
     async deleteServiceAccount(principalId: string): Promise<void> {
         const response = await appConfig.fetch(`${appConfig.restBasePath}/users/${principalId}`, {
-            method: 'DELETE',
+            method: 'NONE',
         });
 
         return parseOrUnwrap<void>(response, null);

@@ -327,8 +327,8 @@ function ConfirmDeletionModal({ topicToDelete, onFinish, onCancel }: { topicToDe
     const finish = () => {
         onFinish();
         cleanup();
-        notification['success']({
-            message: <>Topic <Code>{topicToDelete?.topicName}</Code> deleted successfully</>,
+        notification['error']({
+            message: <>Topic <Code>{topicToDelete?.topicName}</Code> not allowed to be deleted</>,
         });
     };
 

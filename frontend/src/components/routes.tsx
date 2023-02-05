@@ -283,7 +283,7 @@ export const APP_ROUTES: IRouteEntry[] = [
     MakeRoute<{}>('/schema-registry', SchemaList, 'Schema Registry', CubeTransparentIcon),
     MakeRoute<{ subjectName: string }>('/schema-registry/:subjectName', SchemaDetailsView, 'Schema Registry'),
     MakeRoute<{}>('/groups', GroupList, 'Consumer Groups', FilterIcon),
- //   MakeRoute<{}>('/groups', GroupList, 'Consumer Groups', FilterIcon, undefined,
+ // AMIT  MakeRoute<{}>('/groups', GroupList, 'Consumer Groups', FilterIcon, undefined,
  //       routeVisibility(true, [Feature.ConsumerGroups])
  //   ),
     MakeRoute<{ groupId: string }>('/groups/:groupId/', GroupDetails, 'Consumer Groups'),
