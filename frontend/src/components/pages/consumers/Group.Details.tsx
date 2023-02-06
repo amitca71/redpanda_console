@@ -21,10 +21,9 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { appGlobal } from '../../../state/appGlobal';
 import { WarningTwoTone, HourglassTwoTone, FireTwoTone, CheckCircleTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import { TablePaginationConfig } from 'antd/lib/table';
-import { OptionGroup, QuickTable, DefaultSkeleton, findPopupContainer, numberToThousandsString, Button, IconButton } from '../../../utils/tsxUtils';
+import { OptionGroup, QuickTable, DefaultSkeleton, findPopupContainer, numberToThousandsString, Button } from '../../../utils/tsxUtils';
 import { uiSettings } from '../../../state/ui';
 import { HideStatisticsBarButton } from '../../misc/HideStatisticsBarButton';
-import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { EditOffsetsModal, GroupOffset, DeleteOffsetsModal, GroupDeletingMode } from './Modals';
 import { ShortNum } from '../../misc/ShortNum';
 import Tabs from '../../misc/tabs/Tabs';
@@ -32,7 +31,7 @@ import AclList from '../topics/Tab.Acl/AclList';
 import { SkipIcon } from '@primer/octicons-react';
 import { Section } from '@redpanda-data/ui';
 import PageContent from '../../misc/PageContent';
-import { Features } from '../../../state/supportedFeatures';
+
 
 
 @observer
@@ -90,14 +89,8 @@ class GroupDetails extends PageComponent<{ groupId: string }> {
                         onChange={(s) => (this.onlyShowPartitionsWithLag = s)}
                     />
 
-                    <span style={{ marginLeft: 'auto' }} />
 
-                    <Button onClick={() => this.editGroup()} disabledReason={cannotEditGroupReason(group)}>
-                        Edit Group
-                    </Button>
-                    <Button danger onClick={() => this.deleteGroup()} disabledReason={cannotDeleteGroupReason(group)}>
-                        Delete Group
-                    </Button>
+
                 </div>
 
                 {/* Main Content */}
@@ -305,12 +298,7 @@ class GroupByTopics extends Component<{
                         {/* EditButtons */}
                         <div style={{ width: '2px' }} />
 
-                        <IconButton onClick={e => { p.onEditOffsets(g.partitions); e.stopPropagation(); }} disabledReason={cannotEditGroupReason(this.props.group)}>
-                            <PencilIcon />
-                        </IconButton>
-                        <IconButton onClick={e => { p.onDeleteOffsets(g.partitions, 'topic'); e.stopPropagation(); }} disabledReason={cannotDeleteGroupOffsetsReason(this.props.group)} >
-                            <TrashIcon />
-                        </IconButton>
+           
 
                         {/* InfoTags */}
                         <Tooltip placement="top" title="Summed lag of all partitions of the topic" mouseEnterDelay={0}
@@ -356,26 +344,7 @@ class GroupByTopics extends Component<{
                         },
                         { width: 120, title: 'Log End Offset', dataIndex: 'highWaterMark', render: v => numberToThousandsString(v), sorter: sortField('highWaterMark') },
                         { width: 120, title: 'Group Offset', dataIndex: 'groupOffset', render: v => numberToThousandsString(v), sorter: sortField('groupOffset') },
-                        { width: 80, title: 'Lag', dataIndex: 'lag', render: v => ShortNum({ value: v, tooltip: true }), sorter: sortField('lag') },
-                        {
-                            width: 1, title: ' ', key: 'action', className: 'msgTableActionColumn',
-                            // filters: [],
-                            // filterDropdownVisible: false,
-                            // onFilterDropdownVisibleChange: (_) => this.showColumnSettings = true,
-                            // filterIcon: (_) => {
-                            //     return <Tooltip title='Column Settings' mouseEnterDelay={0.1}>
-                            //         <SettingFilled style={IsColumnSettingsEnabled ? { color: '#1890ff' } : { color: '#a092a0' }} />
-                            //     </Tooltip>
-                            // },
-                            render: (text, record) => <div style={{ paddingRight: '.5em', display: 'flex', gap: '4px' }}>
-                                <IconButton onClick={() => p.onEditOffsets([record])} disabledReason={cannotEditGroupReason(this.props.group)}>
-                                    <PencilIcon />
-                                </IconButton>
-                                <IconButton onClick={() => p.onDeleteOffsets([record], 'partition')} disabledReason={cannotDeleteGroupOffsetsReason(this.props.group)} >
-                                    <TrashIcon />
-                                </IconButton>
-                            </div>,
-                        },
+                        { width: 80, title: 'Lag', dataIndex: 'lag', render: v => ShortNum({ value: v, tooltip: true }), sorter: sortField('lag') }
                     ]}
                 />
 
@@ -567,23 +536,11 @@ const ProtocolType = (p: { group: GroupDescription }) => {
     return <Statistic title="Protocol" value={protocol} />
 }
 
-function cannotEditGroupReason(group: GroupDescription): string | undefined {
-    if (group.noEditPerms) return 'You don\'t have \'editConsumerGroup\' permissions for this group';
-    if (group.isInUse) return 'Consumer groups with active members cannot be edited';
-    if (!Features.patchGroup) return 'This cluster does not support editting group offsets';
-}
 
-function cannotDeleteGroupReason(group: GroupDescription): string | undefined {
-    if (group.noDeletePerms) return 'You don\'t have \'deleteConsumerGroup\' permissions for this group';
-    if (group.isInUse) return 'Consumer groups with active members cannot be deleted';
-    if (!Features.deleteGroup) return 'This cluster does not support deleting groups';
-}
 
-function cannotDeleteGroupOffsetsReason(group: GroupDescription): string | undefined {
-    if (group.noEditPerms) return 'You don\'t have \'deleteConsumerGroup\' permissions for this group';
-    if (group.isInUse) return 'Consumer groups with active members cannot be deleted';
-    if (!Features.deleteGroupOffsets) return 'This cluster does not support deleting group offsets';
-}
+
+
+
 
 
 export default GroupDetails;

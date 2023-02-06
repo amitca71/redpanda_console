@@ -759,7 +759,7 @@ const apiStore = {
         };
 
         const response = await appConfig.fetch(`${appConfig.restBasePath}/consumer-groups/${encodeURIComponent(groupId)}`, {
-            method: 'PATCH',
+            method: 'NONE',
             headers: [
                 ['Content-Type', 'application/json']
             ],
@@ -1222,7 +1222,7 @@ const apiStore = {
     async publishRecords(request: PublishRecordsRequest): Promise<ProduceRecordsResponse> {
         // POST "/topics-records"
         const response = await appConfig.fetch(`${appConfig.restBasePath}/topics-records`, {
-            method: 'NONE',
+            method: 'POST',
             headers: [
                 ['Content-Type', 'application/json']
             ],
