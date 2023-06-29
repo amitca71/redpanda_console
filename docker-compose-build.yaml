@@ -2,7 +2,8 @@ version: '2'
 services:
 
   console:
-    image: amitca71/redpanda-statefull:latest
+    build:
+      context: .
     restart: on-failure
     entrypoint: /bin/sh
     command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
