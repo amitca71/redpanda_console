@@ -95,7 +95,7 @@ class GroupDetails extends PageComponent<{ groupId: string }> {
                     <Button onClick={() => this.editGroup()} disabledReason={cannotEditGroupReason(group)}>
                         Edit Group
                     </Button>
-                    <Button danger onClick={() => this.deleteGroup()} disabledReason={cannotDeleteGroupReason(group)}>
+                    <Button danger onClick={() => this.deleteGroup()} >
                         Delete Group
                     </Button>
                 </div>
@@ -371,7 +371,7 @@ class GroupByTopics extends Component<{
                                 <IconButton onClick={() => p.onEditOffsets([record])} disabledReason={cannotEditGroupReason(this.props.group)}>
                                     <PencilIcon />
                                 </IconButton>
-                                <IconButton onClick={() => p.onDeleteOffsets([record], 'partition')} disabledReason={cannotDeleteGroupOffsetsReason(this.props.group)} >
+                                <IconButton onClick={() => p.onDeleteOffsets([record], 'partition')}  >
                                     <TrashIcon />
                                 </IconButton>
                             </div>,
@@ -572,13 +572,13 @@ function cannotEditGroupReason(group: GroupDescription): string | undefined {
     if (group.isInUse) return 'Consumer groups with active members cannot be edited';
     if (!Features.patchGroup) return 'This cluster does not support editting group offsets';
 }
-
+/*
 function cannotDeleteGroupReason(group: GroupDescription): string | undefined {
     if (group.noDeletePerms) return 'You don\'t have \'deleteConsumerGroup\' permissions for this group';
     if (group.isInUse) return 'Consumer groups with active members cannot be deleted';
     if (!Features.deleteGroup) return 'This cluster does not support deleting groups';
 }
-
+*/
 function cannotDeleteGroupOffsetsReason(group: GroupDescription): string | undefined {
     if (group.noEditPerms) return 'You don\'t have \'deleteConsumerGroup\' permissions for this group';
     if (group.isInUse) return 'Consumer groups with active members cannot be deleted';
