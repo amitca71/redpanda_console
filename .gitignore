@@ -18,3 +18,4 @@ requests.txt
 
 # Local build tools installed via Taskfiles
 build
+.env
