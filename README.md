@@ -1,5 +1,5 @@
 # Redpanda Console – A UI for Data Streaming
-#### the docke-compose is using AWS SASL-SSL, see instructions below
+#### the docker-compose is using AWS SASL-SSL, see instructions below
 [![Go Report Card](https://goreportcard.com/badge/github.com/cloudhut/kowl)](https://goreportcard.com/report/github.com/cloudhut/kowl)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/redpanda-data/console?sort=semver)
 [![Docker Repository](https://img.shields.io/badge/docker%20image-ready-green "Docker Repository")](https://hub.docker.com/r/vectorized/console/tags)
