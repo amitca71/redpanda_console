@@ -39,15 +39,15 @@ Do you just want to test RP Console against one of your Kafka clusters without s
 
 ### using docker-compose with SASL-SSL (MSK on AWS):   
 
-pre requisite: set the following env vars (see in .env.sample):
-export broker1=XXXX.
-export broker2=XXX.
-export broker3=XXXX.
-export kafka_username=XXXXX.
-export kafka_password=XXXXXX.
-docker-compose up -d.
-on browser:
-http://localhost:8080/.
+pre requisite: set the following env vars (see in .env.sample):   
+export broker1=XXXX.   
+export broker2=XXX.   
+export broker3=XXXX.   
+export kafka_username=XXXXX.   
+export kafka_password=XXXXXX.   
+docker-compose up -d.   
+on browser:   
+http://localhost:8080/.   
 
 Since Console runs in its own container (which has its own network scope), we have to use host.docker.internal as a bootstrap server. That DNS resolves to the host system's ip address. However since the brokers send a list of all brokers' DNS when a client has connected, you have to make sure your advertised listener is connected accordingly, e.g.: `PLAINTEXT://host.docker.internal:9092`
 
