@@ -1,5 +1,5 @@
 # Redpanda Console – A UI for Data Streaming
-
+#### the docke-compose is using AWS SASL-SSL, see instructions below
 [![Go Report Card](https://goreportcard.com/badge/github.com/cloudhut/kowl)](https://goreportcard.com/report/github.com/cloudhut/kowl)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/redpanda-data/console?sort=semver)
 [![Docker Repository](https://img.shields.io/badge/docker%20image-ready-green "Docker Repository")](https://hub.docker.com/r/vectorized/console/tags)
@@ -7,6 +7,9 @@
 Redpanda Console (previously known as Kowl) is a web application that helps you manage and debug your Kafka/Redpanda workloads effortlessly.
 
 ![preview](docs/assets/preview.gif)
+
+
+
 
 ## Features
 
@@ -34,7 +37,23 @@ Do you just want to test RP Console against one of your Kafka clusters without s
 
 #### Redpanda/Kafka is running locally
 
+### using docker-compose with SASL-SSL (MSK on AWS):   
+
+pre requisite: set the following env vars (see in .env.sample):
+export broker1=XXXX.
+export broker2=XXX.
+export broker3=XXXX.
+export kafka_username=XXXXX.
+export kafka_password=XXXXXX.
+docker-compose up -d.
+on browser:
+http://localhost:8080/.
+
 Since Console runs in its own container (which has its own network scope), we have to use host.docker.internal as a bootstrap server. That DNS resolves to the host system's ip address. However since the brokers send a list of all brokers' DNS when a client has connected, you have to make sure your advertised listener is connected accordingly, e.g.: `PLAINTEXT://host.docker.internal:9092`
+
+
+
+
 
 ```shell
 docker run -p 8080:8080 -e KAFKA_BROKERS=host.docker.internal:9092 docker.redpanda.com/vectorized/console:latest
