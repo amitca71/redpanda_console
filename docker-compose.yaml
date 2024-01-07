@@ -10,7 +10,7 @@ services:
       CONFIG_FILEPATH: /tmp/config.yml
       CONSOLE_CONFIG_FILE: |
         kafka:
-          brokers: ${KAFKA_BROKERS}
+          brokers: [${KAFKA_BROKERS}]
           tls:
             enabled: false
           sasl:
