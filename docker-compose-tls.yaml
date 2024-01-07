@@ -10,11 +10,15 @@ services:
       CONFIG_FILEPATH: /tmp/config.yml
       CONSOLE_CONFIG_FILE: |
         kafka:
-          brokers: [${broker1},${broker2}]
+          brokers: [${broker1},${broker2},${broker3} ]
           tls:
-            enabled: false
+            enabled: true
+            insecureSkipTlsVerify: true
           sasl:
-            enabled: false
+            enabled: true
+            username: ${kafka_username}
+            mechanism: SCRAM-SHA-512
+            password: ${kafka_password}
     ports:
       - "8080:8080"
 
